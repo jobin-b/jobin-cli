@@ -50,13 +50,13 @@ var pushCmd = &cobra.Command{
 				os.Exit(0)
 			}
 		}
-		_, err := exec.Command("git", "add", ".").Output()
-		cobra.CheckErr(err)
+		// _, err := exec.Command("git", "add", ".").Output()
+		// cobra.CheckErr(err)
 
-		_, errCommit := exec.Command("git", "commit", "-m", args[0]).Output()
-		cobra.CheckErr(errCommit)
+		// _, errCommit := exec.Command("git", "commit", "-m", args[0]).Output()
+		// cobra.CheckErr(errCommit)
 
-		output, errPush := exec.Command("git", "push").Output()
+		output, errPush := exec.Command("git", "push", "-v").Output()
 		cobra.CheckErr(errPush)
 		fmt.Println(string(output))
 	},
