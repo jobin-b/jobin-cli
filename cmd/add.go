@@ -13,7 +13,7 @@ import (
 // addCmd represents the add command
 var addCmd = &cobra.Command{
 	Use:   "add",
-	Short: "add alias for path",
+	Short: "add alias for current path",
 	Args: cobra.ExactArgs(1),
 	Run: func(cmd *cobra.Command, args []string) {
 		home, err := os.UserHomeDir()
