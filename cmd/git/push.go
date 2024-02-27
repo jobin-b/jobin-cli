@@ -39,7 +39,8 @@ var pushCmd = &cobra.Command{
 			out, err := exec.Command("git", "status").Output()
 			cobra.CheckErr(err)
 
-			fmt.Println(out)
+			
+			fmt.Println(string(out[:]))
 			fmt.Print("Do you want to proceed? (Y/n): ")
 			response, err := readUserInput()
 			cobra.CheckErr(err)
