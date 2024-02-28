@@ -29,6 +29,15 @@ func readUserInput() (string, error) {
 	return input, nil
 }
 
+func runCommand(command string, args ...string) {
+	cmd := exec.Command(command, args...)
+	cmd.Stdout = os.Stdout
+	cmd.Stdin = os.Stdin
+	cmd.Stderr = os.Stderr
+	err := cmd.Run()
+	cobra.CheckErr(err)
+}
+
 // pushCmd represents the push command
 var pushCmd = &cobra.Command{
 	Use:   "push",
@@ -36,13 +45,7 @@ var pushCmd = &cobra.Command{
 	Args: cobra.ExactArgs(1),
 	Run: func(cmd *cobra.Command, args []string) {
 		if(verifyFlag){
-			comd := exec.Command("git", "status")
-			// cobra.CheckErr(err)
-			comd.Stdout = os.Stdout
-			comd.Stdin = os.Stdin
-		
-			// Run the command
-			err := comd.Run()
+			runCommand("git", "status")
 			
 			// fmt.Println(string(out))
 			fmt.Print("Do you want to proceed? (Y/n): ")
@@ -54,14 +57,11 @@ var pushCmd = &cobra.Command{
 				os.Exit(0)
 			}
 		}
-		_, err := exec.Command("git", "add", ".").Output()
-		cobra.CheckErr(err)
+		runCommand("git", "add", ".")
 
-		_, errCommit := exec.Command("git", "commit", "-m", args[0]).Output()
-		cobra.CheckErr(errCommit)
+		runCommand("git", "commit", "-m", args[0])
 
-		_, errPush := exec.Command("git", "push").Output()
-		cobra.CheckErr(errPush)
+		runCommand("git", "push")
 		fmt.Println("Pushed successfully")
 	},
 }
