@@ -36,11 +36,15 @@ var pushCmd = &cobra.Command{
 	Args: cobra.ExactArgs(1),
 	Run: func(cmd *cobra.Command, args []string) {
 		if(verifyFlag){
-			out, err := exec.Command("git", "status").Output()
-			cobra.CheckErr(err)
-
+			comd := exec.Command("git", "status")
+			// cobra.CheckErr(err)
+			comd.Stdout = os.Stdout
+			comd.Stdin = os.Stdin
+		
+			// Run the command
+			err := comd.Run()
 			
-			fmt.Println(string(out))
+			// fmt.Println(string(out))
 			fmt.Print("Do you want to proceed? (Y/n): ")
 			response, err := readUserInput()
 			cobra.CheckErr(err)
