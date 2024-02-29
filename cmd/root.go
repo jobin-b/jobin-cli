@@ -6,6 +6,7 @@ package cmd
 import (
 	"fmt"
 	"jobin/cmd/git"
+	"jobin/cmd/stock"
 	"os"
 
 	"github.com/spf13/cobra"
@@ -39,6 +40,7 @@ func init() {
 	// Cobra supports persistent flags, which, if defined here,
 	// will be global for your application.
 	rootCmd.AddCommand(git.GitCmd)
+	rootCmd.AddCommand(stock.StockCmd)
 
 	// Cobra also supports local flags, which will only run
 	// when this action is called directly.
@@ -56,7 +58,7 @@ func initConfig() {
 		cobra.CheckErr(err)
 
 		// Search config in home directory with name ".jobin" (without extension).
-		viper.AddConfigPath(home)
+		viper.AddConfigPath(home+"/.jobin")
 		viper.SetConfigType("json")
 		viper.SetConfigName(".jobin")
 	}
