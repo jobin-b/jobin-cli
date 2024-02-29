@@ -18,6 +18,7 @@ import (
 var buyCmd = &cobra.Command{
 	Use:   "buy",
 	Short: "Buys one stock of each stock ticker provided from the specified brokerage",
+	Long: "Buys one stock of each stock ticker provided from the specified brokerage\nExpects path to macros and link folder in the config file.",
 	Args: cobra.MinimumNArgs(2),
 	Run: func(cmd *cobra.Command, args []string) {
 		// home, err := os.UserHomeDir()
@@ -33,6 +34,7 @@ var buyCmd = &cobra.Command{
 }
 
 func runWellsBuy(args []string){
+
 	link := viper.GetString("link_path") + "/wf_buy.lnk"
 	macros := viper.GetString("macros_path") + "/wf_buy.json"
 
@@ -63,8 +65,9 @@ func runWellsBuy(args []string){
 func init() {
 	StockCmd.AddCommand(buyCmd)
 	buyCmd.SetUsageTemplate("Usage:\n  jobin stock buy [brokerage] [...stock tickers]\n\n" +
-			"Brokerages:\n  wf   Wells Fargo\n\n" +
+			"Brokerages:\n  wf   Wells Fargo\n\nNEEDS: wf_buy.json wf_buy.lnk" +
 			"Flags:\n  -h, --help   help for buy\n")
+
 	// Here you will define your flags and configuration settings.
 
 	// Cobra supports Persistent Flags which will work for this command
