@@ -1,4 +1,8 @@
 {
   "macros_path": "/mnt/c/Users/jobin/Documents/uivision/macros",
-  "link_path": "/mnt/c/Users/jobin/Documents/uivision/links"
+  "api_path": "file:///C:\\Users\\jobin\\Documents\\uivision\\macros\\api.html?direct=1&macro=",
+  "chrome_path": "/mnt/c/Program Files/Google/Chrome/Application/chrome.exe",
+  "macro_names": {
+    "wells_fargo_buy": "wf_buy"
+  }
 }

@@ -35,30 +35,33 @@ var buyCmd = &cobra.Command{
 
 func runWellsBuy(args []string){
 
-	link := viper.GetString("link_path") + "/wf_buy.lnk"
-	macros := viper.GetString("macros_path") + "/wf_buy.json"
+	macro := viper.GetString("macro_names.wells_fargo_buy")
+	api_path := viper.GetString("api_path") + macro
+	chrome_path := viper.GetString("chrome_path")
+	macro_path := viper.GetString("macros_path") + "/wf_buy.json"
 
-	fileContent, err := os.ReadFile(macros)
+	fileContent, err := os.ReadFile(macro_path)
 	if err != nil {
 		fmt.Println("Error reading file:", err)
 		return
 	}
 
 	// Modify the value in Commands[5] using sjson
-	updatedJSON, err := sjson.SetBytes(fileContent, "Commands.5.Target", "return ['" + strings.Join(args[1:], "', '") + "'];")
+	updatedJSON, err := sjson.SetBytes(fileContent, "Commands.4.Target", "return ['" + strings.Join(args[1:], "', '") + "'];")
 	if err != nil {
 		fmt.Println("Error updating JSON:", err)
 		return
 	}
 
 	// Write the updated JSON back to the file
-	err = os.WriteFile(macros, updatedJSON, 0644)
+	err = os.WriteFile(macro_path, updatedJSON, 0644)
 	if err != nil {
 		fmt.Println("Error writing to file:", err)
 		return
 	}
 
-	err = exec.Command("open", link).Start()
+	// Run the macro in Chrome
+	err = exec.Command(chrome_path, api_path).Start()
 	cobra.CheckErr(err)
 }
 
