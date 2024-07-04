@@ -41,6 +41,7 @@ var openCmd = &cobra.Command{
 		}
 
 		_, err = exec.Command("open", remoteURL).Output()
+		fmt.Println((remoteURL))
 		cobra.CheckErr(err)
 	},
 }
