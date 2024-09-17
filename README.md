@@ -33,6 +33,3 @@ jobin
 
   - get hex of the sha256 hash of a string
 
-- stock
-  - buy
-    - run scripts to buy the stocks requested
